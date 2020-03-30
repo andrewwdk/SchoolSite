@@ -1,0 +1,84 @@
+﻿
+<!DOCTYPE html>
+<!--[if IE 9]><html lang="en" class="ie9 no-js"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" type="text/css" href="/Content/vendor.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Content//niteflight.min.css" />
+    <link rel="stylesheet" type="text/css" href="/Content//addition.css">
+    <link rel="stylesheet" type="text/css" href="/Content//font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Content//Difficulty.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+<body class="header-static ">
+    <div id="main-container">
+        <!-- [Page Header] -->
+        <header class="header-static">
+            <nav class="navbar navbar-default navbar-static" id="mainNavbar">
+                <div class="container">
+                    <!-- [Company Logo] -->
+                    <div class="navbar-left">
+                        <a class="navbar-brand" href="index.html">
+                            <span class="logo">
+                                <img src="/Images/Logo_400x60.png" alt="The Adventure Company" width="400" height="60" />
+                            </span>
+                        </a>
+                    </div>
+                    <!-- [/Company Logo] -->
+                    
+                </div>
+            </nav>
+        </header>
+        <!-- [/Page Header] -->
+        <!-- [Page Content] -->
+        <main>
+            @RenderBody()
+        </main>
+        <!-- [/Page Content] -->
+        <!-- [Footer Content] -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- [About Us] -->
+                        <div class="well">
+                            <h4>Средняя школа №3 г. Климовичи</h4>
+                        </div>
+                        <!-- [/About Us] -->
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Partial("MetaNavigation")
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- [Copyright] -->
+                            <small class="copyright">
+                                <span>Copyright &copy; SS - SunriseSolutions 2020 Version 1.0.0.0</span>
+                            </small>
+                            <!-- [/Copyright] -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- [/Footer Content] -->
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
