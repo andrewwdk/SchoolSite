@@ -1,0 +1,16 @@
+﻿<!-- [Main Navigation] -->
+<div class="navbar-left" style="margin-top: 3px;">
+    <div class="collapse navbar-collapse" id="siteNavbar">
+        <ul class="nav navbar-nav">
+            <li><a class="text-uppercase" href="#">Новости</a></li>
+            <li><a class="text-uppercase" href="#">Галерея</a></li>
+            <li><a class="text-uppercase" href="#">Ученики</a></li>
+            <li><a class="text-uppercase" href="#">Преподаватели</a></li>
+            @if (Request.IsAuthenticated)
+            {
+                <li><a class="text-uppercase" href="#">Личный кабинет</a></li>
+            }
+        </ul>
+    </div>
+</div>
+<!-- [/Main Navigation] -->

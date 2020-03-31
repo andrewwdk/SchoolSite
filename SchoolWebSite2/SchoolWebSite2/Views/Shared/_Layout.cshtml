@@ -1,0 +1,96 @@
+﻿
+<!DOCTYPE html>
+<!--[if IE 9]><html lang="en" class="ie9 no-js"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="~/Content/niteflight.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor.min.css" rel="stylesheet" />
+    <link href="~/Content/addition.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .navbar-nav {
+            flex-direction: row;
+        }
+        .nav{
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="header-static ">
+    <div id="main-container">
+        <!-- [Page Header] -->
+        <header class="header-static">
+            <nav class="navbar navbar-default navbar-static" id="mainNavbar" style="background-color:transparent">
+                <div class="container">
+                    <!-- [Company Logo] -->
+                    <div class="navbar-left">
+                        <a class="navbar-brand">
+                            <span class="logo">
+                                <img src="~/Images/klimovichi.jpg" alt="Климовичи" />
+                            </span>
+                        </a>
+                    </div>
+                    <!-- [/Company Logo] -->
+                    @Html.Partial("MainNavigation")
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </nav>
+        </header>
+        <!-- [/Page Header] -->
+        <!-- [Page Content] -->
+        <main>
+
+            @RenderBody()
+        </main>
+        <!-- [/Page Content] -->
+        <!-- [Footer Content] -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- [About Us] -->
+                        <div class="well">
+                            <h4 style="margin: 30px 0 0 130px;">Средняя школа №3 г. Климовичи</h4>
+                        </div>
+                        <!-- [/About Us] -->
+                    </div>
+                    <div class="col-md-4">
+                        @Html.Partial("MetaNavigation")
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- [Copyright] -->
+                            <small class="copyright">
+                                <span>Copyright &copy; SS - SunriseSolutions 2020 Version 1.0.0.0</span>
+                            </small>
+                            <!-- [/Copyright] -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- [/Footer Content] -->
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
