@@ -289,6 +289,7 @@
     <Content Include="fonts\open-sans-v13-latin-regular.ttf" />
     <Content Include="fonts\open-sans-v13-latin-regular.woff" />
     <Content Include="fonts\open-sans-v13-latin-regular.woff2" />
+    <Content Include="Images\userdefault.jpg" />
     <Content Include="Models\SchoolWebsiteDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SchoolWebsiteDbModel.edmx</DependentUpon>

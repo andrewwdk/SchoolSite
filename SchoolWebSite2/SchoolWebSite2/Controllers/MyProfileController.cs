@@ -2,6 +2,8 @@
 using SchoolWebSite2.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -21,11 +23,11 @@ namespace SchoolWebSite2.Controllers
         {
             var authDB = new ApplicationDbContext();
             ViewBag.Roles = new SelectList(authDB.Roles, "Name", "Name");
-            return View();
+            return View(new Person());
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateUser(Person person)
+        public async Task<ActionResult> CreateUser(Person person, HttpPostedFileBase upload)
         {
             var authDB = new ApplicationDbContext();
             var db = new SchoolWebsiteDatabaseEntities();
@@ -34,6 +36,11 @@ namespace SchoolWebSite2.Controllers
             if (!db.IsLoginUnique(person.Login))
             {
                 ModelState.AddModelError(string.Empty, "Пользователь с таким именем уже существует!");
+            }
+
+            if (upload != null && upload.ContentLength > 0)
+            {
+                person.Photo = @"~/Images/" + upload.FileName;
             }
 
             if (ModelState.IsValid)
