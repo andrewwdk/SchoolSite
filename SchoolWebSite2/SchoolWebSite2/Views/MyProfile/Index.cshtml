@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .main-container{
+        display:flex;
+    }
+    .options{
+        width:20%;
+        background-color:aqua;
+    }
+    .main-part{
+        width: 80%;
+    }
+</style>
+
+<div class="main-container">
+    <div class="options">
+        @Html.Partial("UserOptions")
+    </div>
+    <div class="main-part">
+
+    </div>
+</div>
+
