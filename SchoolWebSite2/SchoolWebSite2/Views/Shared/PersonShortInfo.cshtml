@@ -1,0 +1,30 @@
+﻿@model SchoolWebSite2.Models.Person
+
+<style>
+    .element{
+        margin: 20px;
+        background-color:aqua;
+        font-size: 20px;
+        flex-wrap: wrap;
+    }
+
+</style>
+
+<div class="element" style="display:flex;padding:20px;">
+    <div style="width: 20%;">
+        <img src="@Url.Content(Model.Photo)" style="width:150px;height:200px;"/>
+    </div>
+    <div style="width:80%;display:flex;flex-wrap:wrap;">
+        <div style="width:100%;text-align:center;">
+            <div>@Model.FullName</div>
+        </div>
+        <div style="width:50%;">
+            <div style="margin-bottom:15px;">Дата рождения: @Model.BirthDate.Value.ToShortDateString()</div>
+            <div>Почта: @Model.Email</div>
+        </div>
+        <div style="width:50%;">
+            <div style="margin-bottom:15px;">Мобильный телефон: @Model.MobileNumber</div>
+            <div>Домашний телефон: @Model.HomeNumber</div>
+        </div>
+    </div>
+</div>

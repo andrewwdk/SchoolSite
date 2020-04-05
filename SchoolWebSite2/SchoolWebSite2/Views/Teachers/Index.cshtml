@@ -1,0 +1,19 @@
+﻿@model IEnumerable<SchoolWebSite2.Models.Person>
+
+<style>
+    .person-container{
+        display: flex;
+        background-color: darkcyan;
+        flex-direction: column;
+        margin: 0 15%;
+    }
+
+    
+</style>
+
+<div class="person-container">
+    @foreach(var person in Model)
+    {
+        Html.RenderPartial("PersonShortInfo", person);
+    }
+</div>
