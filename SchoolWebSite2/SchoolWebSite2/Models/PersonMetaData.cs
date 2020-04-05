@@ -12,6 +12,14 @@ namespace SchoolWebSite2.Models
         public string Login { get; set; }
 
         public string Password { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return this.Surname + " " + this.Name + " " + this.Patronimic;
+            }
+        }
     }
     public class PersonMetaData
     {
@@ -34,6 +42,7 @@ namespace SchoolWebSite2.Models
         public string MobileNumber { get; set; }
 
         [Display(Name = "Дата рождения")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public Nullable<System.DateTime> BirthDate { get; set; }
 
         [Display(Name = "Адрес")]

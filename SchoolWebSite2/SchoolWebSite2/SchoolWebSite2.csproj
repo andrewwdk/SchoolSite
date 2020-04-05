@@ -455,6 +455,7 @@
     <Content Include="Views\MyProfile\Index.cshtml" />
     <Content Include="Views\Shared\UserOptions.cshtml" />
     <Content Include="Views\MyProfile\CreateUser.cshtml" />
+    <Content Include="Views\MyProfile\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

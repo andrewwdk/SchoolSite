@@ -1,9 +1,5 @@
 ﻿@model SchoolWebSite2.Models.Person
 
-@{
-    ViewBag.Title = "CreateUser";
-}
-
 @functions{
     string GetSrc()
     {
@@ -16,6 +12,27 @@
             return Url.Content(Model.Photo);
         }
     }
+
+    string GetCorectDate()
+    {
+        if(Model.BirthDate == null)
+        {
+            return null; 
+        }
+         
+        string day = Model.BirthDate.Value.Day.ToString();
+        if(day.Length == 1)
+        {
+            day = "0" + day;
+        }
+        string month = Model.BirthDate.Value.Month.ToString();
+        if(month.Length == 1)
+        {
+            month = "0" + month;
+        }
+
+        return Model.BirthDate.Value.Year.ToString() + "-" + month + "-" + day;
+    }
 }
 
 <style>
@@ -27,28 +44,27 @@
     .main-part {
         width: 80%;
         text-align: center;
-
     }
 
-    .main-container{
+    .main-container {
         display: flex;
         flex-wrap: wrap;
     }
 
-    .photo-part{
-        width:30%;
+    .photo-part {
+        width: 30%;
         text-align: center;
     }
 
-    .right-from-photo-part{
+    .right-from-photo-part {
         width: 60%;
     }
 
-    .rest-part{
+    .rest-part {
         width: 100%;
     }
 
-    label, .input-font-size{
+    label, .input-font-size {
         font-size: 20px;
     }
 </style>
@@ -58,19 +74,19 @@
         @Html.Partial("UserOptions")
     </div>
     <div class="main-part">
-        <h2>Добавление нового пользователя</h2>
+        <h2>Редактирование</h2>
 
-        @using (Html.BeginForm("CreateUser", "MyProfile", null, FormMethod.Post, new {enctype = "multipart/form-data"}))
+        @using (Html.BeginForm("EditProfile", "MyProfile", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-             @Html.AntiForgeryToken()
-
-             <div class="form-horizontal main-container">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            <div class="form-horizontal main-container">
                 <hr />
-                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="photo-part">
                     <div class="form-group">
                         <div class="col-md-10">
-                            <input type="file" id="inputFile" name="upload" style="display: unset;width:auto;" class ="input-font-size" />
+                            <input type="file" id="inputFile" name="upload" style="display: unset;width:auto;" class="input-font-size" />
                             <img style="width:200px;height:250px" id="targetPhoto" src="@GetSrc()" />
                         </div>
                     </div>
@@ -107,7 +123,9 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control input-font-size", @type = "date" } })
+                            <input class="form-control input-font-size text-box single-line" data-val="true" data-val-date="Поле Дата рождения должно содержать дату."
+                                   id="BirthDate" name="BirthDate" type="date" value="@GetCorectDate()">
+
                             @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -143,32 +161,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.Role, (SelectList)ViewBag.Roles, "Выберите роль", new { @class = "form-control input-font-size", @style="height:auto;" })
-                            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control input-font-size" } })
-                            @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-font-size" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Добавить" class="btn btn-default" />
+                            <input type="submit" value="Сохранить" class="btn btn-default" />
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         }
     </div>
@@ -193,4 +190,3 @@
         }
     }
 </script>
-
