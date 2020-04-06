@@ -16,7 +16,7 @@
           <Property Name="HomeNumber" Type="nvarchar" MaxLength="20" />
           <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" />
           <Property Name="BirthDate" Type="date" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Photo" Type="nvarchar" MaxLength="200" />
           <Property Name="Info" Type="text" />
           <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -69,7 +69,7 @@
           <Property Name="HomeNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="DateTime" Precision="0" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Photo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -100,7 +100,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SchoolWebsiteDatabaseEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SchoolWebsiteDatabaseEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="User" EntityType="Self.User" />
           <AssociationSet Name="FK_User_Person" Association="Self.FK_User_Person">
@@ -113,7 +113,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище SchoolWebsiteDatabaseModelContainer" CdmEntityContainer="SchoolWebsiteDatabaseEntities1">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SchoolWebsiteDatabaseModelContainer" CdmEntityContainer="SchoolWebsiteDatabaseEntities2">
           <EntitySetMapping Name="Person">
             <EntityTypeMapping TypeName="SchoolWebsiteDatabaseModel.Person">
               <MappingFragment StoreEntitySet="Person">

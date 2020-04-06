@@ -46,6 +46,7 @@ namespace SchoolWebSite2.Models
         public Nullable<System.DateTime> BirthDate { get; set; }
 
         [Display(Name = "Адрес")]
+        [MaxLength(100, ErrorMessage = "Длина адреса не должна быть больше 100 символов!")]
         public string Address { get; set; }
 
         [Display(Name = "Фото")]
