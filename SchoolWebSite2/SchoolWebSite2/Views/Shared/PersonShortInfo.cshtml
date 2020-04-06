@@ -12,6 +12,18 @@
             return Url.Content(Model.Photo);
         }
     }
+
+    string GetDate()
+    {
+        if (Model.BirthDate.HasValue)
+        {
+            return Model.BirthDate.Value.ToShortDateString();
+        }
+        else
+        {
+            return "";
+        }
+    }
   }
 <style>
     .element {
@@ -31,7 +43,7 @@
             <div>@Model.FullName</div>
         </div>
         <div style="width:50%;">
-            <div style="margin-bottom:15px;">Дата рождения: @Model.BirthDate.Value.ToShortDateString()</div>
+            <div style="margin-bottom:15px;">Дата рождения: @GetDate()</div>
             <div>Почта: @Model.Email</div>
         </div>
         <div style="width:50%;">
