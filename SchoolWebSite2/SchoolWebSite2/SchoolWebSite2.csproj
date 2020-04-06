@@ -176,6 +176,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyProfileController.cs" />
+    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -459,6 +460,8 @@
     <Content Include="Views\MyProfile\EditProfile.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Shared\PersonShortInfo.cshtml" />
+    <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\People\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

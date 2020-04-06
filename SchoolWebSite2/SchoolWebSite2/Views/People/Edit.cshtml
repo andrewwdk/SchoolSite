@@ -1,0 +1,186 @@
+﻿@model SchoolWebSite2.Models.Person
+
+@functions{
+    string GetSrc()
+    {
+        if (string.IsNullOrEmpty(Model.Photo))
+        {
+            return Url.Content("~/Images/userdefault.jpg");
+        }
+        else
+        {
+            return Url.Content(Model.Photo);
+        }
+    }
+
+    string GetCorectDate()
+    {
+        if (Model.BirthDate == null)
+        {
+            return null;
+        }
+
+        string day = Model.BirthDate.Value.Day.ToString();
+        if (day.Length == 1)
+        {
+            day = "0" + day;
+        }
+        string month = Model.BirthDate.Value.Month.ToString();
+        if (month.Length == 1)
+        {
+            month = "0" + month;
+        }
+
+        return Model.BirthDate.Value.Year.ToString() + "-" + month + "-" + day;
+    }
+}
+
+<style>
+
+    .main-part {
+        margin: 2% 15%;
+        text-align: center;
+    }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .photo-part {
+        width: 30%;
+        text-align: center;
+    }
+
+    .right-from-photo-part {
+        margin-left: 8%;
+        width: 60%;
+    }
+
+    .rest-part {
+        width: 100%;
+    }
+
+    label, .input-font-size {
+        font-size: 20px;
+    }
+</style>
+
+
+    <div class="main-part">
+        <h2>Редактирование</h2>
+
+        @using (Html.BeginForm("Edit", "People", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.Photo)
+            <div class="form-horizontal main-container">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="photo-part">
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input type="file" id="inputFile" name="upload" style="display: unset;width:auto;" class="input-font-size" />
+                            <img style="width:200px;height:250px" id="targetPhoto" src="@GetSrc()" />
+                        </div>
+                    </div>
+                </div>
+                <div class="right-from-photo-part">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-font-size" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control input-font-size" } })
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Patronimic, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Patronimic, new { htmlAttributes = new { @class = "form-control input-font-size" } })
+                            @Html.ValidationMessageFor(model => model.Patronimic, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-font-size" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input class="form-control input-font-size text-box single-line" data-val="true" data-val-date="Поле Дата рождения должно содержать дату."
+                                   id="BirthDate" name="BirthDate" type="date" value="@GetCorectDate()">
+
+                            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="rest-part">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.HomeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.HomeNumber, new { htmlAttributes = new { @class = "form-control input-font-size" } })
+                            @Html.ValidationMessageFor(model => model.HomeNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control input-font-size" } })
+                            @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control input-font-size" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Info, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+
+                            @Html.TextAreaFor(model => model.Info, 5, 10, new { @class = "form-control input-font-size" })
+                            @Html.ValidationMessageFor(model => model.Info, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Сохранить" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+<script>
+    $(function () {
+        $("#inputFile").change(function () {
+            readURL(this);
+        });
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#targetPhoto').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
