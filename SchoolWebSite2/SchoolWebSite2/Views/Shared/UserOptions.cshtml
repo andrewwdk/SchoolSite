@@ -2,5 +2,15 @@
     @if (User.IsInRole("Администратор"))
     {
         <li><a class="text-uppercase" href="/myprofile/createuser">Добавить пользователя</a></li>
+        <li><a class="text-uppercase" href="/bell/edit">Изменить расписание звонков</a></li>
     }
+    @if (User.IsInRole("Учитель"))
+    {
+        <li><a class="text-uppercase" href="/bell/index">Расписание звонков</a></li>
+    }
+    @if (User.IsInRole("Ученик"))
+    {
+        <li><a class="text-uppercase" href="/bell/index">Расписание звонков</a></li>
+    }
+
 </ul>

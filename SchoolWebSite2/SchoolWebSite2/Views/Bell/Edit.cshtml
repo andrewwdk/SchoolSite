@@ -1,0 +1,117 @@
+﻿@model SchoolWebSite2.Models.BellsModel
+
+<style>
+    .options {
+        width: 20%;
+        background-color: aqua;
+    }
+
+    .main-part {
+        width: 60%;
+        text-align: center;
+        margin: 20px 10%;
+    }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label, .input-font-size {
+        font-size: 20px;
+    }
+
+    .main-content{
+        margin: 20px 23%;
+    }
+
+    .lesson-number{
+        font-size: 20px;
+        padding-top: 8px;
+    }
+
+    .time-input{
+        width: 150px;
+        margin: 0 30px;
+    }
+
+    .bells-label-1{
+        width: 90px;
+    }
+
+    .bells-label-2{
+        width: 160px;
+    }
+
+    .bells-label-3{
+        width: 250px;
+    }
+</style>
+
+<div class="main-container">
+    <div class="options">
+        @Html.Partial("UserOptions")
+    </div>
+    <div class="main-part">
+        <h2>Редактирование звонков</h2>
+
+        @using (Html.BeginForm("Edit", "Bell", null, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal main-container">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="main-content">
+                    <div style="display:flex;flex-direction:row;margin-left:-30px;">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.LabelFor(model => model.Bells.FirstOrDefault().OrderNumber, htmlAttributes: new { @class = "bells-label-1" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.LabelFor(model => model.Bells.FirstOrDefault().StartTime, htmlAttributes: new { @class = "bells-label-2" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.LabelFor(model => model.Bells.FirstOrDefault().EndTime, htmlAttributes: new { @class = "bells-label-3" })
+                                </div>
+                            </div>
+                        </div>
+                    @for (int i = 0; i < Model.Bells.Count(); i++)
+                    {
+                        <div style="display:flex;flex-direction:row;">
+                            @Html.HiddenFor(m => m.Bells[i].Id)
+                            @Html.HiddenFor(m => m.Bells[i].OrderNumber)
+                            <div class="form-group">
+                                <div class="col-md-10 lesson-number">
+                                    @Html.DisplayFor(model => model.Bells[i].OrderNumber)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Bells[i].StartTime, new { htmlAttributes = new { @class = "form-control time-input", @type = "time" } })
+                                    @Html.ValidationMessageFor(model => model.Bells[i].StartTime, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Bells[i].EndTime, new { htmlAttributes = new { @class = "form-control time-input", @type = "time" } })
+                                    @Html.ValidationMessageFor(model => model.Bells[i].EndTime, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" style="margin-left:8%;">
+                    <input type="submit" value="Сохранить" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

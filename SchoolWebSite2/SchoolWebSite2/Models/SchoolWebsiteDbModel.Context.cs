@@ -25,7 +25,9 @@ namespace SchoolWebSite2.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Bell> Bell { get; set; }
         public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<Subject> Subject { get; set; }
         public virtual DbSet<User> User { get; set; }
     }
 }

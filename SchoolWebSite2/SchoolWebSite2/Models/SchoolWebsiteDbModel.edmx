@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище SchoolWebsiteDatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bell">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderNumber" Type="int" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,6 +30,14 @@
           <Property Name="Info" Type="text" />
           <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -46,7 +63,9 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище SchoolWebsiteDatabaseModelContainer">
+          <EntitySet Name="Bell" EntityType="Self.Bell" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_User_Person" Association="Self.FK_User_Person">
             <End Role="Person" EntitySet="Person" />
@@ -58,6 +77,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolWebsiteDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bell">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="Id" />
@@ -75,6 +103,14 @@
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_Person" FromRole="Person" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -100,8 +136,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SchoolWebsiteDatabaseEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SchoolWebsiteDatabaseEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bell" EntityType="Self.Bell" />
           <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" />
           <EntitySet Name="User" EntityType="Self.User" />
           <AssociationSet Name="FK_User_Person" Association="Self.FK_User_Person">
             <End Role="Person" EntitySet="Person" />
@@ -113,7 +151,17 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище SchoolWebsiteDatabaseModelContainer" CdmEntityContainer="SchoolWebsiteDatabaseEntities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SchoolWebsiteDatabaseModelContainer" CdmEntityContainer="SchoolWebsiteDatabaseEntities3">
+          <EntitySetMapping Name="Bell">
+            <EntityTypeMapping TypeName="SchoolWebsiteDatabaseModel.Bell">
+              <MappingFragment StoreEntitySet="Bell">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Person">
             <EntityTypeMapping TypeName="SchoolWebsiteDatabaseModel.Person">
               <MappingFragment StoreEntitySet="Person">
@@ -129,6 +177,15 @@
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subject">
+            <EntityTypeMapping TypeName="SchoolWebsiteDatabaseModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
