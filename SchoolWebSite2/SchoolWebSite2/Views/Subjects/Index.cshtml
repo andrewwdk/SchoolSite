@@ -1,0 +1,78 @@
+﻿@model SchoolWebSite2.Models.CreateAndListSubjectModel
+
+
+<style>
+    .options {
+        width: 20%;
+        background-color: aqua;
+    }
+
+    .main-part {
+        width: 60%;
+        text-align: center;
+        margin: 20px 10%;
+    }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label, .input-font-size {
+        font-size: 20px;
+    }
+
+    .main-content {
+        margin: 20px 28%;
+        font-size: 20px;
+    }
+
+    .lesson-number {
+        font-size: 20px;
+        padding-top: 8px;
+    }
+
+    .subject-input {
+        width: 250px;
+    }
+</style>
+
+<div class="main-container">
+    <div class="options">
+        @Html.Partial("UserOptions")
+    </div>
+    <div class="main-part">
+        <h2>Редактирование предметов</h2>
+        @Html.AntiForgeryToken()
+
+        @using (Html.BeginForm("Create", "Subjects", null, FormMethod.Post))
+        {
+            <div style="display:flex;flex-direction:row;width:100%;">
+                @Html.LabelFor(model => model.NewSubject.FullName, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.NewSubject.FullName, new { htmlAttributes = new { @class = "form-control subject-input" } })
+                @Html.LabelFor(model => model.NewSubject.ShortName, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.NewSubject.ShortName, new { htmlAttributes = new { @class = "form-control subject-input" } })
+                <input type="submit" value="Добавить" class="btn btn-default" />
+            </div>
+            @Html.ValidationMessageFor(model => model.NewSubject.FullName, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.NewSubject.ShortName, "", new { @class = "text-danger" })
+        }
+
+        <div class="form-horizontal main-container">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="main-content">
+                @for (int i = 0; i < Model.Subjects.Count(); i++)
+                {
+                    using (Html.BeginForm("Delete", "Subjects", new { id = Model.Subjects[i].Id }, FormMethod.Post))
+                    {
+                        <div style="display:flex;flex-direction:row;width:400px;">
+                            <div> @Html.DisplayFor(model => model.Subjects[i].FullName) </div>
+                            <input type="submit" value="Удалить" class="btn btn-default" style="margin-left:auto;" />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

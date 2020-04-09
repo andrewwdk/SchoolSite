@@ -185,6 +185,7 @@
     <Compile Include="Controllers\MyProfileController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,6 +196,7 @@
     </Compile>
     <Compile Include="Models\BellMetaData.cs" />
     <Compile Include="Models\BellsModel.cs" />
+    <Compile Include="Models\CreateAndListSubjectModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Person.cs">
@@ -220,6 +222,7 @@
     <Compile Include="Models\Subject.cs">
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SubjectMetaData.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
@@ -483,6 +486,7 @@
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Bell\Edit.cshtml" />
     <Content Include="Views\Bell\Index.cshtml" />
+    <Content Include="Views\Subjects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
