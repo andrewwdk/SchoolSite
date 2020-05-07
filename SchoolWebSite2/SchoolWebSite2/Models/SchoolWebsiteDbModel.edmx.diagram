@@ -4,11 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="45a3942d9f104a4198677010ad96a110" Name="Diagram1">
-        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Bell" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Person" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Subject" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.User" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+      <Diagram DiagramId="751233df2830478494c5a8dfee42d2da" Name="Diagram1">
+        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Bell" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Class" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Person" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Student" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Subject" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.Teacher" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolWebsiteDatabaseModel.User" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="SchoolWebsiteDatabaseModel.FK_Student_Class" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolWebsiteDatabaseModel.FK_Student_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolWebsiteDatabaseModel.FK_Teacher_Person" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolWebsiteDatabaseModel.FK_User_Person" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

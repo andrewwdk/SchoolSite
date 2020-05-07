@@ -179,6 +179,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BellController.cs" />
+    <Compile Include="Controllers\ClassesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -196,6 +197,12 @@
     </Compile>
     <Compile Include="Models\BellMetaData.cs" />
     <Compile Include="Models\BellsModel.cs" />
+    <Compile Include="Models\Class.cs">
+      <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClassMetaData.cs" />
+    <Compile Include="Models\ClassWithStudentsModel.cs" />
+    <Compile Include="Models\CreateAndListClassModel.cs" />
     <Compile Include="Models\CreateAndListSubjectModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -219,10 +226,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SchoolWebsiteDbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Student.cs">
+      <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentMetaData.cs" />
     <Compile Include="Models\Subject.cs">
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SubjectMetaData.cs" />
+    <Compile Include="Models\Teacher.cs">
+      <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TeacherMetaData.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
@@ -487,6 +502,8 @@
     <Content Include="Views\Bell\Edit.cshtml" />
     <Content Include="Views\Bell\Index.cshtml" />
     <Content Include="Views\Subjects\Index.cshtml" />
+    <Content Include="Views\Classes\Index.cshtml" />
+    <Content Include="Views\Classes\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -61,6 +61,19 @@ namespace SchoolWebSite2.Controllers
                 db.User.Add(new User() { Login = person.Login, PersonId = savedPerson.Id, RegistrationDate = DateTime.Now });
                 db.SaveChanges();
 
+                if(person.Role == "Ученик")
+                {
+                    db.Student.Add(new Student() { PersonId = savedPerson.Id });
+                }
+                else
+                {
+                    if(person.Role == "Учитель")
+                    {
+                        db.Teacher.Add(new Teacher() { PersonId = savedPerson.Id, TeacherLoad = 0 });
+                    }
+                }
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

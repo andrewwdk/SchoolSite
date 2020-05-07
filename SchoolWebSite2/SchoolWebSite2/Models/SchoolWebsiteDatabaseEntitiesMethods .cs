@@ -20,5 +20,17 @@ namespace SchoolWebSite2.Models
 
             return true;
         }
+        public bool IsClassUnique(Class classToAdd)
+        {
+            foreach (var cl in Class)
+            {
+                if (cl.Number == classToAdd.Number && cl.Code == classToAdd.Code && classToAdd.Id != cl.Id)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

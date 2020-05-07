@@ -1,0 +1,104 @@
+﻿@model SchoolWebSite2.Models.CreateAndListClassModel
+
+<style>
+    .options {
+        width: 20%;
+        background-color: aqua;
+    }
+
+    .main-part {
+        width: 60%;
+        text-align: center;
+        margin: 20px 10%;
+    }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label, .input-font-size {
+        font-size: 20px;
+        margin: 0 20px;
+        padding-top: 6px;
+    }
+
+    .main-content {
+        margin: 20px 28%;
+        font-size: 20px;
+    }
+
+    .lesson-number {
+        font-size: 20px;
+        padding-top: 8px;
+    }
+
+    .number-input {
+        width: 50px;
+    }
+
+    .code-input {
+        width: 150px;
+    }
+
+    .class-teacher-input{
+        width: 60%;
+    }
+</style>
+
+<div class="main-container">
+    <div class="options">
+        @Html.Partial("UserOptions")
+    </div>
+    <div class="main-part">
+        <h2>Редактирование классов</h2>
+        @Html.AntiForgeryToken()
+
+        @using (Html.BeginForm("Create", "Classes", null, FormMethod.Post))
+        {
+            <div style="display:flex;flex-direction:row;width:100%;flex-wrap:wrap;justify-content:center;">
+                @Html.LabelFor(model => model.NewClass.Number, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.NewClass.Number, new { htmlAttributes = new { @class = "form-control number-input", @min = "1", @max= "11" } })
+                @Html.LabelFor(model => model.NewClass.Code, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.NewClass.Code, new { htmlAttributes = new { @class = "form-control code-input" } })
+              
+                <div style="display:flex;flex-direction:row;width:100%;flex-wrap:wrap;justify-content:center;margin:10px 0;">
+                    @Html.LabelFor(model => model.NewClass.ClassTeacher, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(model => model.NewClass.ClassTeacher, (SelectList)ViewBag.Teachers, "Выберите классного руководителя", new { @class = "form-control input-font-size class-teacher-input", @style = "height:auto;" })
+                </div>
+                @Html.LabelFor(model => model.NewClass.Info, htmlAttributes: new { @class = "" })
+                @Html.TextAreaFor(model => model.NewClass.Info, 5, 10, new { @class = "form-control input-font-size" })
+                <input type="submit" value="Добавить" class="btn btn-default" style="margin:10px 0;"/>
+            </div>
+            @Html.ValidationMessageFor(model => model.NewClass.Number, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.NewClass.Code, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.NewClass.ClassTeacher, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.NewClass.Info, "", new { @class = "text-danger" })
+        }
+        
+        <div class="form-horizontal main-container">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="main-content">
+                @for (int i = 0; i < Model.Classes.Count(); i++)
+                {
+                    <div style="display:flex;flex-direction:row;width:400px;">
+                        <div style="margin:10px 0;"> @Html.DisplayFor(model => model.Classes[i].FullName) </div>
+                        @using (Html.BeginForm("Edit", "Classes", new { id = Model.Classes[i].Id }, FormMethod.Get))
+                        {
+                            <input type="submit" value="Изменить" class="btn btn-default" style="margin-left:auto;margin:10px 10px;" />
+                        }
+                        @using (Html.BeginForm("Details", "Classes", new { id = Model.Classes[i].Id }, FormMethod.Get))
+                        {
+                            <input type="submit" value="Подробнее" class="btn btn-default" style="margin-left:auto;margin:10px 10px;" />
+                        }
+                        @using (Html.BeginForm("Delete", "Classes", new { id = Model.Classes[i].Id }, FormMethod.Post))
+                        {
+                            <input type="submit" value="Удалить" class="btn btn-default" style="margin-left:auto;margin:10px 10px;" />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

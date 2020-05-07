@@ -1,0 +1,95 @@
+﻿@model SchoolWebSite2.Models.ClassWithStudentsModel
+
+<style>
+    .options {
+        width: 20%;
+        background-color: aqua;
+    }
+
+    .main-part {
+        width: 60%;
+        text-align: center;
+        margin: 20px 10%;
+    }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label, .input-font-size {
+        font-size: 20px;
+        margin: 0 20px;
+        padding-top: 6px;
+    }
+
+    .main-content {
+        margin: 20px 28%;
+        font-size: 20px;
+    }
+
+    .lesson-number {
+        font-size: 20px;
+        padding-top: 8px;
+    }
+
+    .number-input {
+        width: 50px;
+    }
+
+    .code-input {
+        width: 150px;
+    }
+
+    .class-teacher-input {
+        width: 60%;
+    }
+</style>
+
+<div class="main-container">
+    <div class="options">
+        @Html.Partial("UserOptions")
+    </div>
+    <div class="main-part">
+        <h2>@Model.Class.FullName</h2>
+        @Html.AntiForgeryToken()
+
+        @using (Html.BeginForm("Edit", "Classes", new { id = Model.Class.Id}, FormMethod.Post))
+        {
+            <div style="display:flex;flex-direction:row;width:100%;flex-wrap:wrap;justify-content:center;">
+                @Html.HiddenFor(model => model.Class.Number)
+                @Html.HiddenFor(model => model.Class.Id)
+                @Html.LabelFor(model => model.Class.Code, htmlAttributes: new { @class = "" })
+                @Html.EditorFor(model => model.Class.Code, new { htmlAttributes = new { @class = "form-control code-input" } })
+
+                <div style="display:flex;flex-direction:row;width:100%;flex-wrap:wrap;justify-content:center;margin:10px 0;">
+                    @Html.LabelFor(model => model.Class.ClassTeacher, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(model => model.Class.ClassTeacher, (SelectList)ViewBag.Teachers, "Выберите классного руководителя", new { @class = "form-control input-font-size class-teacher-input", @style = "height:auto;" })
+                </div>
+                @Html.LabelFor(model => model.Class.Info, htmlAttributes: new { @class = "" })
+                @Html.TextAreaFor(model => model.Class.Info, 5, 10, new { @class = "form-control input-font-size" })
+                <input type="submit" value="Сохранить" class="btn btn-default" style="margin:10px 0;" />
+            </div>
+            @Html.ValidationMessageFor(model => model.Class.Code, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Class.ClassTeacher, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Class.Info, "", new { @class = "text-danger" })
+        }
+
+        <div class="form-horizontal main-container">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="main-content">
+                @for (int i = 0; i < Model.Students.Count(); i++)
+                {
+                    <div style="display:flex;flex-direction:row;width:400px;">
+                        <div style="margin:10px 0;"> @Html.DisplayFor(model => model.Students[i].FullName) </div>
+                        @using (Html.BeginForm("DeleteStudent", "Classes", new { studentId = Model.Students[i].PersonId, classId = Model.Class.Id }, FormMethod.Post))
+                        {
+                            <input type="submit" value="Удалить" class="btn btn-default" style="margin-left:auto;margin:10px 10px;" />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

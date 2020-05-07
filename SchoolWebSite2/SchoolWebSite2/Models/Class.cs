@@ -12,30 +12,21 @@ namespace SchoolWebSite2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class Class
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public Class()
         {
-            this.User = new HashSet<User>();
+            this.Student = new HashSet<Student>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Patronimic { get; set; }
-        public string HomeNumber { get; set; }
-        public string MobileNumber { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
-        public string Address { get; set; }
-        public string Photo { get; set; }
+        public int Number { get; set; }
+        public string Code { get; set; }
         public string Info { get; set; }
-        public string Role { get; set; }
-        public string Email { get; set; }
+        public Nullable<int> ClassTeacher { get; set; }
     
-        public virtual Student Student { get; set; }
-        public virtual Teacher Teacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<Student> Student { get; set; }
     }
 }
