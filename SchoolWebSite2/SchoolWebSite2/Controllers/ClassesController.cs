@@ -57,7 +57,7 @@ namespace SchoolWebSite2.Controllers
             var db = new SchoolWebsiteDatabaseEntities();
             var classToEdit = db.Class.First(c => c.Id == id);
             ViewBag.Teachers = new SelectList(db.Teacher, "PersonId", "FullName", classToEdit.ClassTeacher);
-            ViewBag.Students = new SelectList(db.Student.Select(s => s.Class == null), "PersonId", "FullName");
+            ViewBag.Students = new SelectList(db.Student.Where(s => s.Class == null), "PersonId", "FullName");
             var studentsInClass = db.Student.Where(s => s.Class.HasValue && s.Class == id).ToList();
             return View(new ClassWithStudentsModel() { Class = classToEdit, Students = studentsInClass});
         }
@@ -88,12 +88,70 @@ namespace SchoolWebSite2.Controllers
             }
             var cl = db.Class.First(c => c.Id == model.Class.Id);
             ViewBag.Teachers = new SelectList(db.Teacher, "PersonId", "FullName", cl.ClassTeacher);
-            ViewBag.Students = new SelectList(db.Student.Select(s => s.Class == null), "PersonId", "FullName");
+            ViewBag.Students = new SelectList(db.Student.Where(s => s.Class == null), "PersonId", "FullName");
             if(model.Students == null)
             {
                 model.Students = new List<Student>();
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddStudent(ClassWithStudentsModel model)
+        {
+            var db = new SchoolWebsiteDatabaseEntities();
+
+            if (model.NewStudentId == null)
+            {
+                ModelState.AddModelError(string.Empty, "Выберите ученика из списка!");
+            }
+
+            ModelState.Remove("Class.Code");
+            ModelState.Remove("Class.Number");
+            if (ModelState.IsValid)
+            {
+                var studentToEdit = db.Student.First(s => s.PersonId == model.NewStudentId);
+                if (studentToEdit != null)
+                {
+                    studentToEdit.Class = model.Class.Id;
+                }
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Edit", new { id = model.Class.Id });
+        }
+
+        [HttpPost]
+        public ActionResult RemoveStudent(int studentId, int classId)
+        {
+            var db = new SchoolWebsiteDatabaseEntities();
+            var studentToRemove = db.Student.First(s => s.PersonId == studentId);
+            if(studentToRemove != null)
+            {
+                studentToRemove.Class = null;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Edit", new { id = classId });
+        }
+
+        [HttpPost]
+        public ActionResult IncrementYear()
+        {
+            var db = new SchoolWebsiteDatabaseEntities();
+            var classList = db.Class.OrderByDescending(c => c.Number).ToList();
+            for(int i = 0; i < classList.Count(); i++)
+            {
+                if(classList[i].Number == 11)
+                {
+                    db.Class.Remove(classList[i]);
+                }
+                else
+                {
+                    classList[i].Number++;
+                }
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
