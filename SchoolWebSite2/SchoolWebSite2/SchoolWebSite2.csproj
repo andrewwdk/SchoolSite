@@ -201,6 +201,9 @@
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClassMetaData.cs" />
+    <Compile Include="Models\Classroom.cs">
+      <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ClassWithStudentsModel.cs" />
     <Compile Include="Models\CreateAndListClassModel.cs" />
     <Compile Include="Models\CreateAndListSubjectModel.cs" />
@@ -238,6 +241,7 @@
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TeacherMetaData.cs" />
+    <Compile Include="Models\TeacherWithSubjectsModel.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
@@ -504,6 +508,8 @@
     <Content Include="Views\Subjects\Index.cshtml" />
     <Content Include="Views\Classes\Index.cshtml" />
     <Content Include="Views\Classes\Edit.cshtml" />
+    <Content Include="Views\Teachers\IndexForAdmin.cshtml" />
+    <Content Include="Views\Teachers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

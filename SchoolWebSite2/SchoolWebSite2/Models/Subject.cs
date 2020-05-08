@@ -14,8 +14,17 @@ namespace SchoolWebSite2.Models
     
     public partial class Subject
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Subject()
+        {
+            this.Teacher = new HashSet<Teacher>();
+        }
+    
         public int Id { get; set; }
         public string FullName { get; set; }
         public string ShortName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Teacher> Teacher { get; set; }
     }
 }

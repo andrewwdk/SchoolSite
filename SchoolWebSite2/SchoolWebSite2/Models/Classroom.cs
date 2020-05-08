@@ -12,19 +12,12 @@ namespace SchoolWebSite2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Teacher
+    public partial class Classroom
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Teacher()
-        {
-            this.Subject = new HashSet<Subject>();
-        }
-    
-        public int PersonId { get; set; }
-        public Nullable<int> TeacherLoad { get; set; }
-    
-        public virtual Person Person { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subject> Subject { get; set; }
+        public int Id { get; set; }
+        public int Number { get; set; }
+        public int SitsCount { get; set; }
+        public bool HasComputers { get; set; }
+        public bool HasDigitalEquipment { get; set; }
     }
 }

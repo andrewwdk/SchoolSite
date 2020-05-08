@@ -27,6 +27,7 @@ namespace SchoolWebSite2.Models
     
         public virtual DbSet<Bell> Bell { get; set; }
         public virtual DbSet<Class> Class { get; set; }
+        public virtual DbSet<Classroom> Classroom { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Subject> Subject { get; set; }

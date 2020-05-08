@@ -24,6 +24,16 @@
           <Property Name="Info" Type="text" />
           <Property Name="ClassTeacher" Type="int" />
         </EntityType>
+        <EntityType Name="Classroom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="SitsCount" Type="int" Nullable="false" />
+          <Property Name="HasComputers" Type="bit" Nullable="false" />
+          <Property Name="HasDigitalEquipment" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="Id" />
@@ -62,6 +72,14 @@
           </Key>
           <Property Name="PersonId" Type="int" Nullable="false" />
           <Property Name="TeacherLoad" Type="int" />
+        </EntityType>
+        <EntityType Name="Teacher_Subject">
+          <Key>
+            <PropertyRef Name="TeacherId" />
+            <PropertyRef Name="SubjectId" />
+          </Key>
+          <Property Name="TeacherId" Type="int" Nullable="false" />
+          <Property Name="SubjectId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -112,6 +130,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Teacher_Subject_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Teacher_Subject" Type="Self.Teacher_Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teacher_Subject">
+              <PropertyRef Name="SubjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_Subject_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Teacher_Subject" Type="Self.Teacher_Subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Teacher_Subject">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Person">
           <End Role="Person" Type="Self.Person" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -129,10 +175,12 @@
         <EntityContainer Name="Хранилище SchoolWebsiteDatabaseModelContainer">
           <EntitySet Name="Bell" EntityType="Self.Bell" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Classroom" EntityType="Self.Classroom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher_Subject" EntityType="Self.Teacher_Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Student_Class" Association="Self.FK_Student_Class">
             <End Role="Class" EntitySet="Class" />
@@ -145,6 +193,14 @@
           <AssociationSet Name="FK_Teacher_Person" Association="Self.FK_Teacher_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="Teacher" EntitySet="Teacher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_Subject_Subject" Association="Self.FK_Teacher_Subject_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Teacher_Subject" EntitySet="Teacher_Subject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teacher_Subject_Teacher" Association="Self.FK_Teacher_Subject_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Teacher_Subject" EntitySet="Teacher_Subject" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Person" Association="Self.FK_User_Person">
             <End Role="Person" EntitySet="Person" />
@@ -175,6 +231,16 @@
           <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ClassTeacher" Type="Int32" />
           <NavigationProperty Name="Student" Relationship="Self.FK_Student_Class" FromRole="Class" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Classroom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="SitsCount" Type="Int32" Nullable="false" />
+          <Property Name="HasComputers" Type="Boolean" Nullable="false" />
+          <Property Name="HasDigitalEquipment" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -212,6 +278,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Teacher" Relationship="Self.Teacher_Subject" FromRole="Subject" ToRole="Teacher" />
         </EntityType>
         <EntityType Name="Teacher">
           <Key>
@@ -220,6 +287,7 @@
           <Property Name="PersonId" Type="Int32" Nullable="false" />
           <Property Name="TeacherLoad" Type="Int32" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Teacher_Person" FromRole="Teacher" ToRole="Person" />
+          <NavigationProperty Name="Subject" Relationship="Self.Teacher_Subject" FromRole="Teacher" ToRole="Subject" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -285,9 +353,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SchoolWebsiteDatabaseEntities4" annotation:LazyLoadingEnabled="true">
+        <Association Name="Teacher_Subject">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="*" />
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SchoolWebsiteDatabaseEntities5" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bell" EntityType="Self.Bell" />
           <EntitySet Name="Class" EntityType="Self.Class" />
+          <EntitySet Name="Classroom" EntityType="Self.Classroom" />
           <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="Student" EntityType="Self.Student" />
           <EntitySet Name="Subject" EntityType="Self.Subject" />
@@ -309,13 +382,17 @@
             <End Role="Person" EntitySet="Person" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="Teacher_Subject" Association="Self.Teacher_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Teacher" EntitySet="Teacher" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище SchoolWebsiteDatabaseModelContainer" CdmEntityContainer="SchoolWebsiteDatabaseEntities4">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SchoolWebsiteDatabaseModelContainer" CdmEntityContainer="SchoolWebsiteDatabaseEntities5">
           <EntitySetMapping Name="Bell">
             <EntityTypeMapping TypeName="SchoolWebsiteDatabaseModel.Bell">
               <MappingFragment StoreEntitySet="Bell">
@@ -334,6 +411,17 @@
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="ClassTeacher" ColumnName="ClassTeacher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classroom">
+            <EntityTypeMapping TypeName="SchoolWebsiteDatabaseModel.Classroom">
+              <MappingFragment StoreEntitySet="Classroom">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="SitsCount" ColumnName="SitsCount" />
+                <ScalarProperty Name="HasComputers" ColumnName="HasComputers" />
+                <ScalarProperty Name="HasDigitalEquipment" ColumnName="HasDigitalEquipment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -390,6 +478,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="Teacher_Subject" TypeName="SchoolWebsiteDatabaseModel.Teacher_Subject" StoreEntitySet="Teacher_Subject">
+            <EndProperty Name="Subject">
+              <ScalarProperty Name="Id" ColumnName="SubjectId" />
+            </EndProperty>
+            <EndProperty Name="Teacher">
+              <ScalarProperty Name="PersonId" ColumnName="TeacherId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

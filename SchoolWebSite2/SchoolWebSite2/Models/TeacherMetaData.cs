@@ -14,6 +14,8 @@ namespace SchoolWebSite2.Models
 
     public class TeacherMetaData
     {
+        [Required]
+        [Range(1, 100)]
         [Display(Name = "Нагрузка")]
         public Nullable<int> TeacherLoad { get; set; }
     }
