@@ -32,5 +32,18 @@ namespace SchoolWebSite2.Models
 
             return true;
         }
+
+        public bool IsClassroomUnique(Classroom classroom)
+        {
+            foreach (var cl in Classroom)
+            {
+                if (cl.Number == classroom.Number)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

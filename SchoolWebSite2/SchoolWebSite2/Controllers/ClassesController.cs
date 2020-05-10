@@ -153,5 +153,32 @@ namespace SchoolWebSite2.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            var db = new SchoolWebsiteDatabaseEntities();
+            var students = db.Student.Where(s => s.Class.HasValue && s.Class == id).ToList();
+            var classToShow = db.Class.First(c => c.Id == id);
+            if (classToShow.ClassTeacher == null)
+            {
+                classToShow.ClassTeacherName = "Не выбран";
+            }
+            else
+            {
+                var teacher = db.Teacher.First(t => t.PersonId == classToShow.ClassTeacher);
+                classToShow.ClassTeacherName = teacher.FullName;
+            } 
+
+            return View(new ClassWithStudentsModel() { Class = classToShow, Students = students });
+        }
+
+        [HttpGet]
+        public ActionResult List()
+        {
+            var db = new SchoolWebsiteDatabaseEntities();
+            var classes = db.Class.Select(c => c).OrderBy(c => c.Number).ThenBy(c => c.Code).ToList();
+            return View(classes);
+        }
     }
 }

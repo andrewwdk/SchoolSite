@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BellController.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Controllers\ClassroomsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -204,8 +205,10 @@
     <Compile Include="Models\Classroom.cs">
       <DependentUpon>SchoolWebsiteDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassroomMetaData.cs" />
     <Compile Include="Models\ClassWithStudentsModel.cs" />
     <Compile Include="Models\CreateAndListClassModel.cs" />
+    <Compile Include="Models\CreateAndListClassroomModel.cs" />
     <Compile Include="Models\CreateAndListSubjectModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -510,6 +513,11 @@
     <Content Include="Views\Classes\Edit.cshtml" />
     <Content Include="Views\Teachers\IndexForAdmin.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
+    <Content Include="Views\Classes\Details.cshtml" />
+    <Content Include="Views\Classes\List.cshtml" />
+    <Content Include="Views\Classrooms\Index.cshtml" />
+    <Content Include="Views\Classrooms\Details.cshtml" />
+    <Content Include="Views\Classrooms\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

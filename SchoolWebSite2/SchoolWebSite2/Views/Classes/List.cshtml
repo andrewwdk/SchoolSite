@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SchoolWebSite2.Models.Class>
+
+
+<style>
+    .options {
+        width: 20%;
+        background-color: aqua;
+    }
+
+    .main-part {
+        width: 60%;
+        text-align: center;
+        margin: 20px 10%;
+    }
+
+    .main-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    label, .input-font-size {
+        font-size: 20px;
+        margin: 0 20px;
+        padding-top: 6px;
+    }
+
+    .main-content {
+        margin: 20px 28%;
+        font-size: 20px;
+    }
+
+    .lesson-number {
+        font-size: 20px;
+        padding-top: 8px;
+    }
+
+    .number-input {
+        width: 50px;
+    }
+
+    .code-input {
+        width: 150px;
+    }
+
+    .class-teacher-input {
+        width: 60%;
+    }
+</style>
+
+<div class="main-container">
+    <div class="options">
+        @Html.Partial("UserOptions")
+    </div>
+    <div class="main-part">
+        <h2>Список классов</h2>
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal main-container">
+            <div class="main-content">
+                @foreach (var cl in Model)
+                {
+                    <div style="display:flex;flex-direction:row;width:400px;">
+                        <div style="margin:10px 0;"> @cl.FullName </div>
+                        @using (Html.BeginForm("Details", "Classes", new { id = cl.Id }, FormMethod.Get))
+                        {
+                            <input type="submit" value="Подробнее" class="btn btn-default" style="margin-left:auto;margin:10px 10px;" />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
